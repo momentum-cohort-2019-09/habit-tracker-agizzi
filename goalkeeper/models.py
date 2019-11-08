@@ -10,15 +10,16 @@ class User(AbstractUser):
 
 class Goal(models.Model):
   name = models.CharField(max_length = 100)
-  created_at = models.DateField(timezone.now())
-  user = models.ForeignKey(to="User", related_name="user", on_delete=models.CASCADE)
-  CHOICES = [ ('<', 'less than'),
-  ('>', 'more than'), 
-  ('>=','at least'),
-  ('<=', 'at most'),
-  ('=', 'exactly') ]
+  created_at = models.DateTimeField(auto_now_add=True)
+  user = models.ForeignKey(to="User", related_name="goals", on_delete=models.CASCADE)
+  CHOICES = [ ('less than', 'less than'),
+  ('more than', 'more than'), 
+  ('at least','at least'),
+  ('at most', 'at most'),
+  ('exactly', 'exactly') ]
   operator = models.CharField(max_length=10, choices=CHOICES)
-  numeric_goal = models.IntegerField()
+  numeric_goal = models.PositiveIntegerField()
+  units = models.CharField(max_length = 100, null=True, blank=True)
 
   def __str__(self):
     return self.name

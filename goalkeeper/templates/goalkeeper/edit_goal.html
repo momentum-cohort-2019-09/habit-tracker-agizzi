@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="nav-bar">
+  <a class="logo" href="/">GoalKeeper!</a>
+</nav>
+<p class="edit-title">Edit Goal</p>
+<form class="edit-form" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="save-edit-button" type="submit" value="Save Edits"></button>
+</form>
+{% endblock %}
