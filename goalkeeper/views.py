@@ -28,7 +28,7 @@ def display_goal(request, pk):
   if request.method == "POST":
     form = HistoryForm(request.POST)
     if form.is_valid():
-      history = form.save(commit=False, instance=history)
+      history = form.save(commit=False)
       history.user = request.user
       history.save()
       return redirect('display-goal')
@@ -49,8 +49,9 @@ def edit_goal(request, pk):
       return redirect('display-goal')
   else:
     form = GoalForm()
-    form.field['name'].initial=OG_goal.name
-    form.field['operator'].initial=OG_goal.operator
-    form.field['numeric_goal'].initial=OG_goal.numeric_goal
-  return render(request, 'goalkeeper/display_goal.html', { "form": form, "goal": goal })
+    form.fields['name'].initial=OG_goal.name
+    form.fields['operator'].initial=OG_goal.operator
+    form.fields['numeric_goal'].initial=OG_goal.numeric_goal
+    form.fields['units'].initial=OG_goal.units
+  return render(request, 'goalkeeper/edit_goal.html', { "form": form, "goal": OG_goal })
 

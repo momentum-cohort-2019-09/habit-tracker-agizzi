@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from datetime import date
 
 # Create your models here.
 class User(AbstractUser):
@@ -10,8 +11,8 @@ class User(AbstractUser):
 
 class Goal(models.Model):
   name = models.CharField(max_length = 100)
-  created_at = models.DateTimeField(auto_now_add=True)
-  user = models.ForeignKey(to="User", related_name="goals", on_delete=models.CASCADE)
+  created_at = models.DateField(default=date.today)
+  user = models.ForeignKey(to="User", related_name="user", on_delete=models.CASCADE)
   CHOICES = [ ('less than', 'less than'),
   ('more than', 'more than'), 
   ('at least','at least'),
@@ -26,14 +27,15 @@ class Goal(models.Model):
 
 class History(models.Model):
   goal = models.ForeignKey(to="Goal", related_name="goal", on_delete=models.CASCADE)
-  daily_input = models.IntegerField(default=0)
-  day = models.DateField()
-  target = models.IntegerField()
+  daily_input = models.PositiveIntegerField(default=0)
+  day_of_input = models.DateField(default=date.today)
+  target = models.PositiveIntegerField()
   
   def save(self, *args, **kwargs):
     if self.target is None:
       self.target = self.goal.numeric_goal
       super().save(*args, **kwargs)
+      return self.target
 
   
     

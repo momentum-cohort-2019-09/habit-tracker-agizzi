@@ -9,4 +9,4 @@ class GoalForm(forms.ModelForm):
 class HistoryForm(forms.ModelForm):
   class Meta:
     model = History
-    fields = ['day', 'daily_input']
+    fields = ['day_of_input', 'daily_input']

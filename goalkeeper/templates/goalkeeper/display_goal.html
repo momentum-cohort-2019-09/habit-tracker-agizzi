@@ -10,12 +10,12 @@
     {% if goal.units %} {{ goal.units }} {% endif %} per day.
   </p>
   <p class="daily-input-label">
-    Update your progress here ~
+    Update your progress here:
   </p>
   <form class="daily-input-form" method="POST">
     {% csrf_token %}
     {{ form.as_p}}
-    <button class="history-button" type="submit" value="Save Entry"></button>
+    <button class="history-button" type="submit">Save Entry</button>
   </form>
 </div>
 {% endblock %}
