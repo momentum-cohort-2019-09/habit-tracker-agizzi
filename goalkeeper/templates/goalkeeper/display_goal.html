@@ -17,5 +17,8 @@
     {{ form.as_p}}
     <button class="history-button" type="submit">Save Entry</button>
   </form>
+  {% for history in historys %}
+  <p class="historys">{{ history }}</p>
+  {% endfor %}
 </div>
 {% endblock %}

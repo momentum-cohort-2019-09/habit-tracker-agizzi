@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from datetime import date
 
+
 # Create your models here.
 class User(AbstractUser):
 
@@ -12,8 +13,8 @@ class User(AbstractUser):
 class Goal(models.Model):
   name = models.CharField(max_length = 100)
   created_at = models.DateField(default=date.today)
-  user = models.ForeignKey(to="User", related_name="user", on_delete=models.CASCADE)
-  CHOICES = [ ('less than', 'less than'),
+  user = models.ForeignKey(to="User", related_name="goals", on_delete=models.CASCADE)
+  CHOICES = [ ('fewer than', 'fewer than'),
   ('more than', 'more than'), 
   ('at least','at least'),
   ('at most', 'at most'),
@@ -36,6 +37,12 @@ class History(models.Model):
       self.target = self.goal.numeric_goal
       super().save(*args, **kwargs)
       return self.target
+
+  def __str__(self):
+    return f'Your input on {self.day_of_input} was {self.daily_input}. ' 
+
+  
+
 
   
     
